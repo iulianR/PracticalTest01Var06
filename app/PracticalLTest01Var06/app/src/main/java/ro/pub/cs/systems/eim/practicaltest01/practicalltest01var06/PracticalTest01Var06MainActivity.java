@@ -63,6 +63,14 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
 
     private IntentFilter intentFilter = new IntentFilter();
 
+    private MessageBroadcastReceiver messageBroadcastReceiver = new MessageBroadcastReceiver();
+    private class MessageBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("[Message]", intent.getStringExtra("link"));
+            System.out.println(intent.getStringExtra("link"));
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,16 +110,12 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
 
         intentFilter.addAction("ro.pub.cs.systems.eim.practicaltest01.actionType1");
         intentFilter.addAction("ro.pub.cs.systems.eim.practicaltest01.actionType2");
+
+        registerReceiver(messageBroadcastReceiver, intentFilter);
+
     }
 
-    private MessageBroadcastReceiver messageBroadcastReceiver = new MessageBroadcastReceiver();
-    private class MessageBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.d("[Message]", intent.getStringExtra("link"));
-            System.out.println(intent.getStringExtra("link"));
-        }
-    }
+
 
 
     @Override
